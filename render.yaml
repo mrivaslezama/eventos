@@ -1,0 +1,20 @@
+databases:
+  - name: eventos
+    databaseName: eventos
+    user: eventos
+    plan: free
+
+services:
+  - type: web
+    plan: free
+    name: eventos
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: eventos
+          property: connectionString
+      - key: 7f2eb018e50ada259420fa38c044d84c
+        sync: false
